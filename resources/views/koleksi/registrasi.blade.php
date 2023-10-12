@@ -1,5 +1,3 @@
-{{-- AHMAD FAZA AL FARISI (6706220050) --}}
-
 <x-guest-layout>
     <form method="POST" action="{{ route('koleksi.storeKoleksi') }}">
         @csrf
