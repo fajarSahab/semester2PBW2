@@ -27,6 +27,7 @@ class User extends Authenticatable
         'birthdate',
         'agama',
         'jeniskelamin',
+        //fajar arrohman nur sahab 6706223015
     ];
 
     /**

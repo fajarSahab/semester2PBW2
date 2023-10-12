@@ -12,5 +12,7 @@ class Collection extends Model
         'namaKoleksi',
         'jenisKoleksi',
         'jumlahKoleksi',
+        //fajar arohman nur sahab 6706223015
     ];
 }
+

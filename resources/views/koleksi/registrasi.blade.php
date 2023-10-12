@@ -29,7 +29,7 @@
             </div>
             <x-input-error :messages="$errors->get('jenisKoleksi')" class="mt-2" />
         </div>
-
+        //fajar arrohman nur sahab 6706223015
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="jumlahKoleksi" :value="__('Jumlah Koleksi')" />

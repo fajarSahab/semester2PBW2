@@ -39,8 +39,9 @@ class CollectionsController extends Controller
             'namaKoleksi' => $request->namaKoleksi,
             'jenisKoleksi' => $request->jenisKoleksi,
             'jumlahKoleksi' => $request->jumlahKoleksi,
-        ]);
 
+        ]);
+//Fajar arrohman nur sahab 6706223015
         return redirect()->route('koleksi.daftarKoleksi');
     }
 

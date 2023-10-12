@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/tambahKoleksi', [CollectionsController::class, 'create'])->name('koleksi.registrasi');
     Route::post('/koleksiStore', [CollectionsController::class, 'store'])->name('koleksi.storeKoleksi');
     Route::get('/koleksiView/{collection}', [CollectionsController::class, 'show'])->name('koleksi.infoKoleksi');
+    //Fajar arrohman NS 6706223015
 });
 
 require __DIR__ . '/auth.php';

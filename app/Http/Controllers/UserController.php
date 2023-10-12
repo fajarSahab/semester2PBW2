@@ -55,7 +55,7 @@ class UserController extends Controller
             'agama' => $request->agama,
             'jeniskelamin' => $request->jeniskelamin,
         ]);
-
+//Fajar arrohman NS 6706223015
         return redirect()->route("user.daftarPengguna");
 
     }

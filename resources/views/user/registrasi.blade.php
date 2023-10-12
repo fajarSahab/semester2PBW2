@@ -9,7 +9,7 @@
                 autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
         </div>
-
+        //fajar arrohman nur sahab 6706223015
         <!-- Fullname -->
         <div class="mt-4">
             <x-input-label for="fullname" :value="__('Fullname')" />

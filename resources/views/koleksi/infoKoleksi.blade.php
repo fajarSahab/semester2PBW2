@@ -31,7 +31,7 @@
                                 <th class="p-4">Jumlah Koleksi</th>
                                 <td class="p-4">{{ $collection->jumlahKoleksi }}</td>
                             </tr>
-
+                            //fajar arrohman nur sahab 6706223015
                         </table>
                     </div>
                 </div>
