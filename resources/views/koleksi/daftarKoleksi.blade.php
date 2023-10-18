@@ -34,7 +34,6 @@
                                     </th>
                                 </tr>
                             </thead>
-                            //fajar arrohman nur sahab 6706223015
                             <tbody>
                                 @foreach ($koleksi as $item)
                                     <tr

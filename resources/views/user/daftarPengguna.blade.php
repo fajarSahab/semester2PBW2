@@ -17,7 +17,7 @@
                             <thead
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    //fajar arrohman nur sahab 6706223015
+
                                     <th scope="col" class="px-6 py-3">
                                         No
                                     </th>
@@ -71,7 +71,7 @@
                                             {{ $user->address }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $user->phonenumber }}
+                                            {{ $user->phoneNumber }}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $user->birthdate }}
