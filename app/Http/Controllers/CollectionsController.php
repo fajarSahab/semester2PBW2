@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\CollectionsDataTable;
 use App\Models\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\DataTables\UsersDataTable;
 
 class CollectionsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    // {
+    //     $koleksi = Collection::all();
+    //     return view("koleksi.daftarKoleksi", compact('koleksi'));
+    // }
+
+    public function index(CollectionsDataTable $dataTable)
     {
-        $koleksi = Collection::all();
-        return view("koleksi.daftarKoleksi", compact('koleksi'));
+        return $dataTable->render('koleksi.daftarKoleksi');
     }
 
     /**

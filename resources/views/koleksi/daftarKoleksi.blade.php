@@ -1,70 +1,26 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
 
+    <div class="py-12">
+        <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <a href="{{ route('koleksi.registrasi') }}"> <x-primary-button class="ml-4">
+                            {{ __('Register') }}
+                        </x-primary-button></a>
+                    <div class=" mt-6  relative overflow-x-auto shadow-md sm:rounded-lg text-yellow-100">
+                        {{ $dataTable->table() }}
+                    </div>
 
-
-@section('content')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#datatable').DataTable({
-                ajax: '{{ url('getAllCollections') }}',
-                a
-                serverSide: false,
-                processing: true,
-                deferRender: true,
-                type: 'GET',
-                destroy: true,
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'judul',
-                        name: 'judul'
-                    },
-                    {
-                        data: 'jenis',
-                        name: 'jenis'
-                    },
-                    {
-                        data: 'jumlah',
-                        name: 'jumlah'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-        });
-    </script>
-
-    <body>
-        <div class="container-fluid">
-            <nav aria-label="breadcrumb" class="navbar navbar-expand-lg navbar-light">
-                <ol class="breadcrumb primary-color">
-                    <li class="breadcrumb-item">
-                        <a class="white-text" href="{{ url('/dashboardE') }}">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item active">Daftar Koleksi</li>
-                </ol>
-            </nav>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Judul</th>
-                            <th>Jenis</th>
-                            <th>Jumlah</th>
-                            <th>Opsi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                </div>
             </div>
         </div>
-    </body>
-@endsection
+    </div>
+    @push('scripts')
+        {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+    @endpush
+</x-app-layout>
