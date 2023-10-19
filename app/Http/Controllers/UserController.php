@@ -6,16 +6,22 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\DataTables\UsersDataTable;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    // {
+    //     $users = User::all();
+    //     return view('user.daftarPengguna', compact('users'));
+    // }
+
+    public function index(UsersDataTable $dataTable)
     {
-        $users = User::all();
-        return view('user.daftarPengguna', compact('users'));
+        return $dataTable->render('user.daftarPengguna');
     }
 
     /**
@@ -55,9 +61,8 @@ class UserController extends Controller
             'agama' => $request->agama,
             'jeniskelamin' => $request->jeniskelamin,
         ]);
-//Fajar arrohman NS 6706223015
+        //Fajar arrohman NS 6706223015
         return redirect()->route("user.daftarPengguna");
-
     }
 
     /**

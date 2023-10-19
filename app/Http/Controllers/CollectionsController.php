@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class CollectionsController extends Controller
 {
@@ -30,19 +32,24 @@ class CollectionsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'namaKoleksi' => ['required', 'string', 'max:100'],
-            'jenisKoleksi' => ['required', 'numeric', 'in:1,2,3'],
-            'jumlahKoleksi' => ['required', 'integer'],
+            'namaKoleksi' => ['required', 'string', 'max:100', 'unique:collections'],
+            'jenisKoleksi' => ['required', 'gt:0',],
+            'jumlahKoleksi' => ['required', 'gt:0'],
+        ], [
+            'namaKoleksi.unique' => 'Nama koleksi tersebut sudah ada'
         ]);
 
-        $collection = Collection::create([
+        $collection = [
             'namaKoleksi' => $request->namaKoleksi,
             'jenisKoleksi' => $request->jenisKoleksi,
             'jumlahKoleksi' => $request->jumlahKoleksi,
+            'jumlahSisa' => $request->jumlahKoleksi,
+            'jumlahKeluar' => 0
 
-        ]);
-//Fajar arrohman nur sahab 6706223015
-        return redirect()->route('koleksi.daftarKoleksi');
+        ];
+
+        DB::table('collections')->insert($collection);
+        return view('koleksi.daftarKoleksi');
     }
 
     /**
@@ -75,5 +82,37 @@ class CollectionsController extends Controller
     public function destroy(Collection $collections)
     {
         //
+    }
+
+    public function getAllCollections()
+    {
+        $collections = DB::table('collections')
+            ->select(
+                'id as id',
+                'nama as judul',
+
+                DB::raw('
+                (CASE 
+                WHEN jenis="1" THEN "Buku"
+                WHEN jenis="2" THEN "Majalah"
+                WHEN jenis="3" THEN "Cakram Digital"
+                ) AS jenis
+            '),
+                'jumlahAwal as jumlahAwal',
+                'jumlahSisa as jumlahSisa',
+                'jumlahKeluar as jumlahKeluar',
+            )
+            ->orderBy('nama', 'asc')
+            ->get();
+
+        return Datatables::of($collections)
+            ->addColumn('action', function ($collection) {
+                $html = '
+            <a href="' . url('infoKoleksi') . "/" . $collection->id . '">
+                <i class="fas fa-edit"></i>
+            </a>';
+                return $html;
+            })
+            ->make(true);
     }
 }
