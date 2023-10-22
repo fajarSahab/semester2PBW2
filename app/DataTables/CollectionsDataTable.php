@@ -32,11 +32,11 @@ class CollectionsDataTable extends DataTable
         })
         ->addColumn('jenisKoleksi', function (Collection $Collection) {
             switch ($Collection->jenisKoleksi) {
-                case 0:
-                    return 'Buku';
                 case 1:
-                    return 'Majalah';
+                    return 'Buku';
                 case 2:
+                    return 'Majalah';
+                case 3:
                     return 'Cakram Digital';
                 default:
                     return '-';

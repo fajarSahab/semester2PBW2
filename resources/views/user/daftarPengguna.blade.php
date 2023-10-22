@@ -12,7 +12,7 @@
                     <a href="{{ route('user.registrasi') }}"> <x-primary-button class="ml-4">
                             {{ __('Register') }}
                         </x-primary-button></a>
-                    <div class=" mt-6  relative overflow-x-auto shadow-md sm:rounded-lg text-yellow-100">
+                    <div class=" mt-6  relative overflow-x-auto shadow-md sm:rounded-lg text-red-500">
                         {{ $dataTable->table() }}
                     </div>
 

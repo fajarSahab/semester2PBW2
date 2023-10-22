@@ -72,15 +72,28 @@ class CollectionsController extends Controller
      */
     public function edit(Collection $collections)
     {
-        //
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Collection $collections)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'namaKoleksi'=> ['required'],
+            'jumlahKoleksi'=> ['required'],
+            'jenisKoleksi'=> ['required']
+        ]);
+
+        $affected = DB::table('collections')
+        ->where('id',  $request->id)
+        ->update([
+            'namaKoleksi'=> $request->namaKoleksi,
+            'jumlahKoleksi'=> $request->jumlahKoleksi,
+            'jenisKoleksi'=> $request->jenisKoleksi,
+        ]);
+        return redirect()->route('koleksi.daftarKoleksi');
     }
 
     /**
