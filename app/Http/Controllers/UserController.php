@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\DataTables\UsersDataTable;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -49,20 +50,28 @@ class UserController extends Controller
             'jeniskelamin' => ['required', 'integer', 'max:4'],
         ]);
 
-        $user = User::create([
-            'username' => $request->username,
-            'fullname' => $request->fullname,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'address' => $request->address,
-            'birthdate' => $request->birthdate,
-            'phoneNumber' => $request->phoneNumber,
-            // Pastikan ada nilai untuk phoneNumber
-            'agama' => $request->agama,
-            'jeniskelamin' => $request->jeniskelamin,
-        ]);
-        //Fajar arrohman NS 6706223015
-        return redirect()->route("user.daftarPengguna");
+        DB::beginTransaction();
+
+        try {
+            User::create([
+                'username' => $request->username,
+                'fullname' => $request->fullname,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'address' => $request->address,
+                'birthdate' => $request->birthdate,
+                'phoneNumber' => $request->phoneNumber,
+                'agama' => $request->agama,
+                'jeniskelamin' => $request->jeniskelamin,
+            ]);
+
+            DB::commit();
+
+            return redirect()->route("user.daftarPengguna")->with('success', "Added user successfully");
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route("user.daftarPengguna")->with('error', "Added user failed");
+        }
     }
 
     /**
@@ -76,17 +85,50 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        return view("user.editPengguna", compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    //FAJAR ARROHMAN NS 6706223015
+    public function update(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $request->validate([
+                "username" => ["required"],
+                "fullname" => ["required"],
+                "email" => ["required"],
+                "address" => ["required"],
+                "birthdate" => ["required"],
+                "phoneNumber" => ["required"],
+                "agama" => ["required"],
+                "jeniskelamin" => ["required"],
+            ]);
+
+            $user = User::findOrFail($request->id)->update([
+                "username" => $request->username,
+                "fullname" => $request->fullname,
+                "email" => $request->email,
+                "address" => $request->address,
+                "birthdate" => $request->birthdate,
+                "phoneNumber" => $request->phoneNumber,
+                "agama" => $request->agama,
+                "jeniskelamin" => $request->jeniskelamin,
+            ]);
+
+            DB::commit();
+
+            return redirect()->route("user.daftarPengguna")->with('success', "Updated user successfully");
+        } catch (\Exception $e) {
+            dd($e);
+
+            DB::rollBack();
+            return redirect()->route("user.daftarPengguna")->with('error', "Updated user failed");
+        }
     }
 
     /**
@@ -96,4 +138,6 @@ class UserController extends Controller
     {
         //
     }
+
+    //FAJAR ARROHMAN NUR SAHAB 6706223015
 }

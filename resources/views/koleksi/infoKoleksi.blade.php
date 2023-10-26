@@ -1,61 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
+{{-- FAJAR ARROHMAN NUR SAHAB --}}
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Info Koleksi') }}
+        </h2>
+    </x-slot>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <div class="py-12">
+        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <form action="{{ route('koleksi.updateKoleksi') }}" method="POST">
+                        <input type="hidden" name="id" value="{{ $collection->id }}" id="">
+                        @csrf
+                        <table class="border-collapse table-fixed w-full text-md">
+                            <tr>
 
-</head>
-
-<body>
-    <form method="POST" action="{{ url('koleksiUpdate') }}">
-        @csrf
-        <div class="row from-group">
-            <label class="form-label">ID Koleksi</label>
-            <input id="id" name="id" type="text" class="form-control" autocomplete="off"
-                value="{{ $collection->id }}" readonly>
-        </div>
-        <div class="row form-group">
-            <label class="form-label">Judul Koleksi*</label>
-            <input id="id" name="namaKoleksi" type="text" class="form-control" autocomplete="off"
-                value="{{ $collection->namaKoleksi }}">
-        </div>
-        <div class="row form-group">
-            <label class="form-label">Jenis*</label>
-            <select name="jenisKoleksi" id="jenisKoleksi" class="form-select" required>
-                <option value="-1" @if (old('jenisKoleksi', $collection->jenisKoleksi) == -1) selected @endif>Pilih Satu</option>
-                <option value="1" @if (old('jenisKoleksi', $collection->jenisKoleksi) == 1) selected @endif>Buku</option>
-                <option value="2" @if (old('jenisKoleksi', $collection->jenisKoleksi == 2)) selected @endif>Majalah</option>
-                <option value="3" @if (old('jenisKoleksi', $collection->jenisKoleksi) == 3) selected @endif>Cakram Digital</option>
-            </select>
-        </div>
-        <div class="row form-group">
-            <label class="form-label">Jumlah Awal*</label>
-            <input type="text" id="jumlahAwal" name="jumlahKoleksi" class="form-control" autocomplete="off"
-                value="{{ old('nama', $collection->jumlahKoleksi) }}" readonly>
-        </div>
-        <div class="row form-group">
-            <label class="form-label">Jumlah Sisa*</label>
-            <input type="text" id="jumlahSisa" name="jumlahSisa" class="form-control" autocomplete="off"
-                value="{{ old('nama', $collection->jumlahSisa) }}">
-        </div>
-        <div class="row form-group">
-            <label class="form-label">Jumlah Keluar*</label>
-            <input type="text" id="jumlahKeluar" name="jumlahKeluar" class="form-control" autocomplete="off"
-                value="{{ old('nama', $collection->jumlahKeluar) }}">
-        </div>
-        <div class="row form-group">
-            <div class="col-md-8">
-                <button class="btn btn-primary buttonConf" id="buttSubmit" type="submit">Ok</button>
-                <button type="reset" class="btn btn-danger buttonConf">Reset</button>
+                                <th
+                                    class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-3 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                                    Nama Koleksi</th>
+                                <td
+                                    class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
+                                    <!-- Nama Kolkesi -->
+                                    <div>
+                                        <x-text-input id="namaKoleksi" class="block mt-1 w-full" type="text"
+                                            name="namaKoleksi" :value="old('namaKoleksi', $collection->namaKoleksi)" required autofocus
+                                            autocomplete="namaKoleksi" />
+                                        <x-input-error :messages="$errors->get('namaKoleksi')" class="mt-2" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th
+                                    class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-3 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                                    Jenis Koleksi</th>
+                                <td
+                                    class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
+                                    <!-- Jenis Kolkesi -->
+                                    <div>
+                                        <select name="jenisKoleksi"
+                                            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                                            <option disabled selected>Pilih Jenis Koleksi</option>
+                                            <option value="1"
+                                                {{ $collection->jenisKoleksi == '1' ? 'selected' : '' }}>
+                                                Buku
+                                            </option>
+                                            <option value="2"
+                                                {{ $collection->jenisKoleksi == '2' ? 'selected' : '' }}>
+                                                Majalah</option>
+                                            <option value="3"
+                                                {{ $collection->jenisKoleksi == '3' ? 'selected' : '' }}>
+                                                Cakram Digital</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th
+                                    class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-3 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                                    Jumlah Koleksi</th>
+                                <td
+                                    class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
+                                    <!-- Jumlah Kolkesi -->
+                                    <div>
+                                        <x-text-input id="jumlahKoleksi" class="block mt-1 w-full" type="number"
+                                            name="jumlahKoleksi" :value="old('jumlahKoleksi', $collection->jumlahKoleksi)" required autofocus
+                                            autocomplete="jumlahKoleksi" />
+                                        <x-input-error :messages="$errors->get('jumlahKoleksi')" class="mt-2" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="flex justify-end pt-6 pr-9">
+                            <x-primary-button class="ml-4">
+                                {{ __('Update Collection') }}
+                            </x-primary-button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </form>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+    </div>
+</x-app-layout>

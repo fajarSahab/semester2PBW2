@@ -34,12 +34,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/userRegistration', [UserController::class, 'create'])->name('user.registrasi');
     Route::post('/userStore', [UserController::class, 'store'])->name('user.storePengguna');
     Route::get('/userView/{user}', [UserController::class, 'show'])->name('user.infoPengguna');
+    Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('user.editPengguna');
+    Route::post('userUpdate', [UserController::class, 'update'])->name('user.updatePengguna');
 
     Route::get('/koleksi', [CollectionsController::class, 'index'])->name('koleksi.daftarKoleksi');
     Route::get('/tambahKoleksi', [CollectionsController::class, 'create'])->name('koleksi.registrasi');
     Route::post('/koleksiStore', [CollectionsController::class, 'store'])->name('koleksi.storeKoleksi');
     Route::get('/koleksiView/{collection}', [CollectionsController::class, 'show'])->name('koleksi.infoKoleksi');
     Route::post('/koleksiUpdate', [CollectionsController::class,'update'])->name('koleksi.updateKoleksi');
+    Route::get('koleksi/{collection}/edit', [CollectionsController::class, 'editKoleksi'])->name('koleksi.editKoleksi');
     //Fajar arrohman NS 6706223015
 });
 

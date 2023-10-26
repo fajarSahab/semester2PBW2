@@ -25,9 +25,9 @@ class CollectionsDataTable extends DataTable
         return (new EloquentDataTable($query))
         ->addColumn('action', function (Collection $Collection) {
             return '<div class="btn-group btn-group-sm flex gap-4" role="group" aria-label="Action Buttons">
-                        <a href="/users/' . $Collection->id . '/edit" class="btn btn-gray">Edit</a>
+                        <a href="/koleksi/' . $Collection->id . '/edit" class="btn btn-gray">Edit</a>
                         <a href="/koleksiView/' . $Collection->id . '" class="btn btn-gray">View</a>
-                        <a href="/users/' . $Collection->id . '/delete" class="btn btn-gray">Delete</a>
+                        <a href="/koleksi/' . $Collection->id . '/delete" class="btn btn-gray">Delete</a>
                     </div>';
         })
         ->addColumn('jenisKoleksi', function (Collection $Collection) {
