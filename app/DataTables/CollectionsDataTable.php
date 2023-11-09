@@ -30,8 +30,8 @@ class CollectionsDataTable extends DataTable
                         <a href="/koleksi/' . $Collection->id . '/delete" class="btn btn-gray">Delete</a>
                     </div>';
         })
-        ->addColumn('jenisKoleksi', function (Collection $Collection) {
-            switch ($Collection->jenisKoleksi) {
+        ->addColumn('jenis', function (Collection $Collection) {
+            switch ($Collection->jenis) {
                 case 1:
                     return 'Buku';
                 case 2:
@@ -65,15 +65,20 @@ class CollectionsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('collections-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('print'),
-                    ]);
+            ->setTableId('collections-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -84,15 +89,19 @@ class CollectionsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
-            Column::make('namaKoleksi'),
-            Column::make('jenisKoleksi'),
-            Column::make('jumlahKoleksi'),
+            // Column::make('id'),
+            Column::make('nama'),
+            Column::make('jenis'),
+            Column::make('jumlahAwal'),
+            Column::make('jumlahSisa'),
+            Column::make('jumlahKeluar'),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center'),
+            // Column::make('created_at'),
+            // Column::make('updated_at'),
         ];
     }
 

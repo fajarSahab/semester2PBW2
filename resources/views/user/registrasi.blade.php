@@ -153,12 +153,12 @@
                                 class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
                                 {{-- jenis kelamin --}}
                                 <div class="">
-                                    <select name="jenis_kelamin"
+                                    <select name="jeniskelamin"
                                         class="w-full mt-2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
                                         <option disabled selected>Pilih Jenis Kelamin</option>
-                                        <option value="0" {{ old('jenis_kelamin') == '0' ? 'selected' : '' }}>Pria
+                                        <option value="0" {{ old('jeniskelamin') == '0' ? 'selected' : '' }}>Pria
                                         </option>
-                                        <option value="1" {{ old('jenis_kelamin') == '1' ? 'selected' : '' }}>
+                                        <option value="1" {{ old('jeniskelamin') == '1' ? 'selected' : '' }}>
                                             Wanita</option>
                                     </select>
                                 </div>

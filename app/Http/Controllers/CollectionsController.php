@@ -39,32 +39,24 @@ class CollectionsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'namaKoleksi' => ['required', 'string', 'max:100', 'unique:collections'],
-            'jenisKoleksi' => ['required', 'gt:0',],
-            'jumlahKoleksi' => ['required', 'gt:0'],
-        ], [
-            'namaKoleksi.unique' => 'Nama koleksi tersebut sudah ada'
+            'nama'      => ['required', 'string', 'max:255', 'unique:collections'],
+            'jenis'     => ['required', 'gt:0'],
+            'jumlahAwal'    => ['required', 'gt:0']
+        ],
+        [
+            'nama.unique'   => 'Nama koleksi tersebut sudah ada'
         ]);
-        DB::beginTransaction();
 
-        try {
+        $koleksi = [
+            'nama' => $request->nama,
+            'jenis' => $request->jenis,
+            'jumlahAwal' => $request->jumlahAwal,
+            'jumlahSisa' => $request->jumlahAwal,
+            'jumlahKeluar' => 0,
+        ];
 
-            Collection::create([
-                'namaKoleksi' => $request->namaKoleksi,
-                'jenisKoleksi' => $request->jenisKoleksi,
-                'jumlahKoleksi' => $request->jumlahKoleksi
-            ]);
-
-            DB::commit();
-
-            return redirect()->route("koleksi.daftarKoleksi")->with("success", "Added collection successfully");
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->route("koleksi.daftarKoleksi")->with("error", "Added collection failed");
-        }
-
-        // DB::table('collections')->insert($collection);
-        // return view('koleksi.daftarKoleksi');
+        DB::table('collections')->insert($koleksi);
+        return view('koleksi.daftarKoleksi');
     }
 
     /**
@@ -88,25 +80,23 @@ class CollectionsController extends Controller
      */
     public function update(Request $request)
     {
-        DB::beginTransaction();
-        try {
-            $request->validate([
-                "namaKoleksi" => ["required"],
-                "jenisKoleksi" => ["required"],
-                "jumlahKoleksi" => ["required"],
-            ]);
+        $request->validate([
+            'jenis'     => ['required', 'gt:0'],
+            'jumlahSisa'     => ['required', 'gt:0'],
+            'jumlahKeluar'     => ['required', 'gt:0'],
+        ]);
 
-            $affected = DB::table('collections')
-                ->where("id", $request->id)
-                ->update($request->except(['_token']));
+        $affected = DB::table('collections')
+        ->where('id', $request->id)
+        ->update([
+            'jenis' => $request->jenis,
+            'jumlahSisa' => $request->jumlahSisa,
+            'jumlahKeluar' => $request->jumlahKeluar,
+        ]);
 
-            DB::commit();
-            return redirect()->route("koleksi.daftarKoleksi")->with("success", "Updated collection successfully");
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->route("koleksi.daftarKoleksi")->with("error", "Updated collection failed");
-        }
+        return view('koleksi.daftarKoleksi');
     }
+ 
     //Fajar Arrohman Nur Sahab 6706223015
     /**
      * Remove the specified resource from storage.
@@ -131,7 +121,7 @@ class CollectionsController extends Controller
                 ) AS jenis
             '),
                 'jumlahAwal as jumlahAwal',
-                'jumlahSisa as jumlahSisa',
+                'jumlahSisa as jumlahSisa', 
                 'jumlahKeluar as jumlahKeluar',
             )
             ->orderBy('nama', 'asc')

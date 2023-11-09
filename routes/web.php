@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CollectionsController;
+use App\Http\Controllers\DetailTransactionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +45,32 @@ Route::middleware('auth')->group(function () {
     Route::get('/koleksiView/{collection}', [CollectionsController::class, 'show'])->name('koleksi.infoKoleksi');
     Route::post('/koleksiUpdate', [CollectionsController::class,'update'])->name('koleksi.updateKoleksi');
     Route::get('koleksi/{collection}/edit', [CollectionsController::class, 'editKoleksi'])->name('koleksi.editKoleksi');
-    //Fajar arrohman NS 6706223015
+
+
+    Route::name('transaksi.')->group(function () {
+        Route::get('/transaksi',[TransactionController::class, 'index'])->name('daftarTransaksi');
+        Route::get('/transaksiTambah',[TransactionController::class, 'create'])->name('transaksiTambah');
+        Route::post('/transaksiStore',[TransactionController::class, 'store']);
+        Route::get('/transaksiView/{transaction}',[TransactionController::class, 'show']);
+        Route::post('/detailTransactionUpdate', [DetailTransactionController::class, 'update'])->name('infoTransaksi');
+        Route::post('/transaksiView/{transaction}', [TransactionController::class, 'show'])->name('');
+        Route::get('/getAllTransactions', [
+            TransactionController::class,
+            'getAllTransactions'
+        ]);
+    });
+
+    Route::name('detailTransaksi')->group(function () {
+        Route::get('/detailTransaksiKembalikan/{detailTransactionId}', [DetailTransactionController::class, 'detailTransaksiKembalikan'])->name('detailTransaksiKembalikan');
+
+        Route::get('/getAllDetailTransactions/{transactionId}', [DetailTransactionController::class, 'getAllDetailTransactions']);
+    });
+
+
+
+    
+ 
+ 
 });
 
 require __DIR__ . '/auth.php';

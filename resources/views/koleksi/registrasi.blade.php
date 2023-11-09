@@ -21,10 +21,9 @@
                                 class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
                                 <!-- Nama Kolkesi -->
                                 <div>
-                                    <x-text-input id="namaKoleksi" class="block mt-1 w-full" type="text"
-                                        name="namaKoleksi" :value="old('namaKoleksi')" required autofocus
-                                        autocomplete="namaKoleksi" />
-                                    <x-input-error :messages="$errors->get('namaKoleksi')" class="mt-2" />
+                                    <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama"
+                                        :value="old('nama')" required autofocus autocomplete="nama" />
+                                    <x-input-error :messages="$errors->get('nama')" class="mt-2" />
                                 </div>
                             </td>
                         </tr>
@@ -36,15 +35,15 @@
                                 class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
                                 <!-- Jenis Kolkesi -->
                                 <div>
-                                    <select name="jenisKoleksi"
+                                    <select name="jenis"
                                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
                                         <option disabled selected>Pilih Jenis Koleksi</option>
-                                        <option value="1" {{ old('jenis_kelamin') == '1' ? 'selected' : '' }}>
+                                        <option value="1" {{ old('jenis') == '1' ? 'selected' : '' }}>
                                             Buku
                                         </option>
-                                        <option value="2" {{ old('jenis_kelamin') == '2' ? 'selected' : '' }}>
+                                        <option value="2" {{ old('jenis') == '2' ? 'selected' : '' }}>
                                             Majalah</option>
-                                        <option value="3" {{ old('jenis_kelamin') == '3' ? 'selected' : '' }}>
+                                        <option value="3" {{ old('jenis') == '3' ? 'selected' : '' }}>
                                             Cakram Digital</option>
                                     </select>
                                 </div>
@@ -58,10 +57,12 @@
                                 class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
                                 <!-- Jumlah Kolkesi -->
                                 <div>
-                                    <x-text-input id="jumlahKoleksi" class="block mt-1 w-full" type="number"
-                                        name="jumlahKoleksi" :value="old('jumlahKoleksi')" required autofocus
-                                        autocomplete="jumlahKoleksi" />
-                                    <x-input-error :messages="$errors->get('jumlahKoleksi')" class="mt-2" />
+                                    <x-input-label for="jumlahAwal" :value="__('Jumlah')" />
+
+                                    <x-text-input id="jumlahAwal" class="block mt-1 w-full" type="number"
+                                        name="jumlahAwal" :value="old('jumlahAwal')" min="1" required />
+
+                                    <x-input-error :messages="$errors->get('jumlahAwal')" class="mt-2" />
                                 </div>
                             </td>
                         </tr>
